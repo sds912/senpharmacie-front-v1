@@ -1,0 +1,10 @@
+html, body{
+    background-color: #F4F4F4;
+
+}
+
+.body{
+    width: calc(100vw - 260px);
+    background-color: #FFFFFF;
+    border-radius: 7px;
+}
