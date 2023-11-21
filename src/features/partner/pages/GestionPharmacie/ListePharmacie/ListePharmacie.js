@@ -74,7 +74,7 @@ function ListePharmacie() {
           
 				 </div>
 				 <div className="ProprietaireList">
-      <table className="table">
+      <table className="table table-striped table-hover table-responsive">
         <thead>
           <tr>
             <th scope="col">Image</th>
@@ -89,7 +89,7 @@ function ListePharmacie() {
           {pharmacies.map(pharmacie => (
             <tr key={pharmacie.id}>
               <td>
-              <img style={{width: 100,height:100}} src={"http://localhost:8000/images/"+pharmacie.photo} className=" imagePharmaci" alt={pharmacie.nom}></img>
+              <img style={{width: 60,height:60}} src={"http://localhost:8000/images/"+pharmacie.photo} className=" imagePharmaci" alt={pharmacie.nom}></img>
 
               </td>
               <td>{pharmacie.nom}</td>

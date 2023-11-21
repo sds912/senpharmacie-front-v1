@@ -17,7 +17,8 @@ const detailsAgentPharmacie=(id)=>{
        
    }
 const ajoutAgentPharmacie=(data)=>{
-    return api.post(`/proprietaire/ajouterAgentPharmacie/${data.pharmacie_id}`,data)
+
+    return api.post(`/proprietaire/ajouterAgentPharmacie/${data.pharmacie_id}`,data);
        
    }
 
@@ -26,13 +27,18 @@ const listeMedicament = (id) =>{
     return api.get(`proprietaire/listerProduits/${id}`);
    }
 const modifierMedicament = (data, selectMed) =>{
-    selectMed.nom = data.nom;
-    selectMed.categorie_id = data.categorie_id;
-    selectMed.description = data.description;
-    selectMed.prix = data.prix;
-    selectMed.quantite = data.quantite;
-
-    return api.put(`proprietaire/modifierProduit/${selectMed.pharmacie_id}/produits/${selectMed.id}`,selectMed);
+    const formData = new FormData();
+    formData.append('nom', data.nom);
+    formData.append('photo', data.photo);
+    formData.append('description', data.description);
+    formData.append('categorie_id', data.categorie_id);
+    formData.append('prix', data.prix);
+    formData.append('quantite', data.quantite);
+    return api.put(`proprietaire/modifierProduit/${selectMed.pharmacie_id}/produits/${selectMed.id}`
+    ,formData,
+    {headers: {
+        "Content-Type": "multipart/form-data"
+    }});
 
    }
 const ajouterMedicament = (data, id) =>{
@@ -43,8 +49,10 @@ const ajouterMedicament = (data, id) =>{
     formData.append('categorie_id', data.categorie_id);
     formData.append('prix', data.prix);
     formData.append('quantite', data.quantite);
-    console.log(formData.get('photo'))
-    return api.post(`proprietaire/ajouterProduit/${id}`,formData);
+    
+    return api.post(`proprietaire/ajouterProduit/${id}`,formData,{headers: {
+        "Content-Type": "multipart/form-data"
+    }});
    }
 const supprimerMedicamet = (pharmacieId, id) => {
     return api.delete(`/proprietaire/supprimerProduit/${pharmacieId}/produits/${id}`);
@@ -73,8 +81,18 @@ const modifierPharmacie = (id) =>{
     return api.put(`pharmacie/modifierPharmacie/${id}`);
    }
 const ajouterPharmacie = (data) =>{
-   
-    return api.post('/pharmacie/ajouterPharmacie',data);
+    const formData = new FormData();
+    formData.append('nom', data.nom);
+    formData.append('adresse', data.adresse);
+    formData.append('latitude', data.latitude);
+    formData.append('longitude', data.longitude);
+    formData.append('telephone', data.telephone);
+    formData.append('fax', data.fax);
+    formData.append('quartier_id', data.quartier_id);
+    formData.append('photo', data.photo !== null? data.photo[0]: null);
+    return api.post('/pharmacie/ajouterPharmacie',formData, {headers: {
+        "Content-Type": "multipart/form-data"
+    }});
    }
 const supprimerPharmacie = (id) =>{
     return api.delete(`pharmacie/supprimerPharmacie/${id}`,id);

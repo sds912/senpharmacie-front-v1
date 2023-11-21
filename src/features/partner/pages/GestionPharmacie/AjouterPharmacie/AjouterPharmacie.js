@@ -26,7 +26,6 @@ function AjouterPharmacie() {
 
 
   const onSubmit = (data) => {
-    console.log(data);
     ProprietaireService.ajouterPharmacie(data).then((response) => {
       Swal.fire({
         icon: 'success',
@@ -50,7 +49,7 @@ function AjouterPharmacie() {
   const loadDepartment =  (idRegion) =>{
     PharmacieService.getListDepartements(idRegion)
     .then(response => {
-      setDepartements(response)
+      setDepartements(response.data);
       console.log(response?.data)
     })
   }
@@ -134,6 +133,8 @@ function AjouterPharmacie() {
                     <div className="form-group mb-3">
                       <label className="form-label">Numéro de téléphone de la pharmacie</label>
                       <input
+                       maxLength={9}
+                       minLength={9}
                         className="form-control w-100"
                         type="tel"
                         {...register("telephone")}
@@ -145,6 +146,8 @@ function AjouterPharmacie() {
                     <div className="form-group mb-3">
                       <label className="form-label">Numéro de fax de la pharmacie</label>
                       <input
+                       maxLength={9}
+                       minLength={9}
                         className="form-control w-100"
                         type="tel"
                         {...register("fax")}

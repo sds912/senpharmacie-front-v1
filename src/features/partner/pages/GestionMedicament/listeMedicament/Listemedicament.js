@@ -6,6 +6,7 @@ import { ProprietaireService } from '../../../../../services/propretaire.service
 import { useForm } from 'react-hook-form';
 import { Button, Modal } from 'react-bootstrap';
 import { Php } from '@mui/icons-material';
+import { BASE_URL } from '../../../../../constants/app-constant';
 
 function Listemedicament() {
 
@@ -35,8 +36,11 @@ function Listemedicament() {
   };
 
 
-  
-  const modalClose = () => setShow(false);  
+  const modalClose = () => {
+    reset();
+    setShow(false);
+    setSelectedMecicament(null);
+  };  
   const modalShow = () => setShow(true); 
   
     useEffect(() => {
@@ -50,7 +54,6 @@ function Listemedicament() {
     ProprietaireService.listeMedicament(pharmacieId)
     .then(response => {
       setMedicaments(response.data.produits);
-      console.log(response.data);
     })
     .catch(error => {
       console.error(error);
@@ -64,11 +67,10 @@ function Listemedicament() {
       setValue('description', med.description);
       setValue('categorie_id', med.categorie_id);
       setValue('prix', med.prix);
-      setValue('quantite', med.quantite)
+      setValue('quantite', med.quantite);
     };
 
     const onSubmit = data => {
-      console.log(data)
       if(selectedMedicament === null){
         ProprietaireService.ajouterMedicament(data, pharmacieId)
         .then(
@@ -76,6 +78,7 @@ function Listemedicament() {
            loadMedicaments();
           setShow(false);
           reset();
+          setSelectedMecicament(false);
           }
         ).catch((error) => {
           console.log(error)
@@ -87,6 +90,7 @@ function Listemedicament() {
           loadMedicaments();
           modalClose();
           reset();
+          setSelectedMecicament(false);
           }
         ).catch((error) => {
           console.log(error)
@@ -124,9 +128,9 @@ function Listemedicament() {
 						<button onClick={modalShow} className='btn btn-outline-dark'>Ajouter un medicament</button>
 				 </div>
 				 <div className="ProprietaireList">
-      <table className="table">
+      <table className="table  table-striped table-hover table-responsive">
         <thead>
-          <tr>
+          <tr className='w-100' style={{position: 'relative'}}>
 		  	<th scope="col">Image</th>
             <th scope="col">Nom</th>
             <th scope="col">Description</th>
@@ -134,13 +138,15 @@ function Listemedicament() {
             <th scope="col">Categorie</th>
             <th scope="col">Prix</th>
             <th scope="col">pharmacie</th>
-            <th scope="col">Actions</th>
+            <th scope="col " className='text-end' style={{position: 'absolute',right: 0}}>Actions</th>
           </tr>
         </thead>
         <tbody>
           {medicaments.map(medicament => (
             <tr key={medicament.id}>
-              <td>{medicament.photo}</td>
+              <td>
+                <img width={60} src={`${BASE_URL}/images/${medicament.photo}`}  alt={medicament.photo}/>
+              </td>
               <td>{medicament.nom}</td>
               <td>{medicament.description}</td>
               <td>{medicament.quantite}</td>
@@ -149,10 +155,10 @@ function Listemedicament() {
               <td>{medicament.pharmacie_id}</td>
               <td>{medicament.telephone}</td>
               {/* <td>{agent.status == 0 ?"actif":"inactif"}</td> */}
-              <td>
-			  <button className="btn btn-outline-primary mx-1  " onClick={() =>onSelectMedicament(medicament)}> Modifier</button>
-			  <button className='btn btn-outline-danger' onClick={()=> supprimerMedicament(medicament.pharmacie_id, medicament.id)}> Supprimer</button>
-			  <a href={`/DetailsMedicament/${medicament.id}`} className="btn btn-outline-success mx-1 "> Details</a>
+              <td className='text-end'>
+			  <button className="btn btn-outline-primary mx-1  " onClick={() =>onSelectMedicament(medicament)} title='Modifier'><i className='fa fa-edit'></i></button>
+			  <button className='btn btn-outline-danger' onClick={()=> supprimerMedicament(medicament.pharmacie_id, medicament.id)} title='Supprimer'><i className='fa fa-trash'></i></button>
+			  <a href={`/DetailsMedicament/${medicament.id}`} className="btn btn-outline-success mx-1 "><i className='fa fa-eye' title='Voir Détails'></i></a>
 			        </td>
             </tr>
           ))}
@@ -177,9 +183,11 @@ function Listemedicament() {
 				</div>
 		   </div>
 		   <div className='col-12 col-md-6'>
-				   <div className='form-group mb-3'>
-					<label className='form-label'>Image</ label>
-					
+				  <div className='form-group mb-3'>
+            <label className='form-label'>
+                { selectedMedicament !== null ? <img width={30} src={`${BASE_URL}/images/${selectedMedicament.photo}`}  alt={selectedMedicament.nom}/> : null}
+                <span>{ selectedMedicament !== null ? "Changer l'image" : "Ajouter une image"} </span>
+            </ label>
 					<input  
           {...register('photo')} // Register the 'image' field with react-hook-form
           onChange={handleImageChange}
