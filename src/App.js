@@ -5,7 +5,7 @@ import { ClientHomePage } from './features/client/pages/ClientHomePage/ClientHom
 import { LoginPage } from './features/common/pages/LoginPage/LoginPage';
 import { RegisterPage } from './features/common/pages/RegisterPage/RegisterPage';
 import PanierPage from './features/client/pages/PanierPage/PanierPage';
-import ChatPage from './features/common/pages/ChatPage/ChatPage';
+import {ChatPage} from './features/common/pages/ChatPage/ChatPage';
 import { AddPropPage } from './features/admin/pages/AddPropPage/AddPropPage';
 import { AdminHomePage } from './features/admin/pages/AdminHomePage/AdminHomePage';
 import { GestionPropPage } from './features/admin/pages/GestionPropPage/GestionPropPage';
@@ -17,7 +17,6 @@ import ListeCategorie from './features/partner/pages/GestionCategorie/ListeCateg
 import ListeAgent from './features/partner/pages/GestionAgent/ListeAgent/ListeAgent';
 import AjouterPharmacie from './features/partner/pages/GestionPharmacie/AjouterPharmacie/AjouterPharmacie';
 import ModifierPharmacie from './features/partner/pages/GestionPharmacie/ModifierPharmacie/ModifierPharmacie';
-import DetailsPharmacie from './features/partner/pages/GestionPharmacie/DetailsPharmacie/DetailsPharmacie';
 import DetailsDeMaPharmacies from './features/partner/pages/GestionPharmacie/DetailsPharmacie/DetailsPharmacie';
 import AjouterMedicament from './features/partner/pages/GestionMedicament/AjouterMedicament/AjouterMedicament';
 import ModifierMedicament from './features/partner/pages/GestionMedicament/ModifierMedicament/ModifierMedicament';

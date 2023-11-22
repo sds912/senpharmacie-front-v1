@@ -20,10 +20,20 @@ const listeProprietaires = () =>{
     return api.get('/listeProprietaires');
    }
 
-const detailsPharmacie=()=>{
-    return api.get('/pharmacie')
+const detailsPharmacie=(id)=>{
+    return api.get(`/pharmacie/detailsPharmacie/${id}`)
        
    }
+
+
+const listePublicAgentsPharmacie = (id) => {
+ return api.get(`/public/agentsPharmacies/${id}`);
+}
+
+const getPublicPharmacieHoraires = (id) =>{
+ return api.get(`/public/horairesPharmacie/${id}`);
+
+}
 
 
 export const  PharmacieService = {
@@ -32,5 +42,7 @@ export const  PharmacieService = {
  listeProprietaires,
  getListQuartier,
  getListRegion,
- getListDepartements
+ getListDepartements,
+ listePublicAgentsPharmacie,
+ getPublicPharmacieHoraires
 }

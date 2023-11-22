@@ -30,6 +30,7 @@ position: relative;
 
 .details-section{
     margin-top: 80px;
+    min-height: 540px;
 }
 .retour{
     text-decoration:none;

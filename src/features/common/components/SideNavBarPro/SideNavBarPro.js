@@ -54,7 +54,7 @@ export const SideNavBarPro = () => {
 						</Link>
 					</li>
 					<li className='mt-2 p-2'>
-						<Link className='link' to={''} >
+						<Link className='link' to={'/chat'} >
 							<img src={SimpleImg} alt='User' />
 							<span className='ms-2'>Chat</span>
 						</Link>
